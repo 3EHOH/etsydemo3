@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
-  #before_filter :authenticate_user!, only: [:seller, :new, :create, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:seller, :new, :create, :edit, :update, :destroy]
   before_filter :check_user, only: [:edit, :update, :destroy]
 
   def seller 
@@ -80,9 +80,9 @@ class ListingsController < ApplicationController
     end
 
     def check_user
-      #if current_user != @listing.user_id
-        #redirect_to root_url, alert: "Sorry but you can't edit someone else's listing"
-      #end
+      if current_user != @listing.user_id
+        redirect_to root_url, alert: "Sorry but you can't edit someone else's listing"
+      end
     end
 
 end
