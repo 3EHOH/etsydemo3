@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
+ <li><%= link_to 'Destroy', @listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" %></li>
+
 <%= link_to 'Show', @listing, class: "btn btn-link"%> |
 <%= link_to 'Back', listings_path, class: "btn btn-link" %>
