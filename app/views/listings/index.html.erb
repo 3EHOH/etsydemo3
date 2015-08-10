@@ -1,7 +1,3 @@
-<div class="jumbotron">
-  <h1>Camouflage flags</h1>
-  <h2>but you can still see 'em</h2>
-</div>
 
 <div class="center">
   <div class="row">
@@ -21,6 +17,10 @@
   </div>
 </div>
 
+<li><%= link_to "sign up", new_admin_registration_path %></li>
+<li><%= link_to "sign in", new_admin_session_path %></li>
+
+<!-- change to admin? -->
 <% if user_signed_in? %>
   <%= link_to 'New Listing', new_listing_path, class: "btn btn-link,", data: { no_turbolink: true} %>
 <% end %>
