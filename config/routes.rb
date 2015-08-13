@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  
-  devise_for :admins
+
+  devise_for :admins, :skip => :registrations
   devise_for :users
   resources :listings do 
     resources :orders, only: [:new, :create]
@@ -14,9 +14,11 @@ Rails.application.routes.draw do
 
   root :to => 'listings#index'
 
-  devise_scope :user do  
+  devise_scope :user do     #same devise_scope for admin?
     get '/users/sign_out' => 'devise/sessions#destroy'     
   end
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

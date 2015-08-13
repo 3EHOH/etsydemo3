@@ -6,8 +6,8 @@ class OrdersController < ApplicationController
     @orders = Order.all.where(buyer: current_user).order("created_at DESC")
   end
 
-  def sales
-    @orders = Order.all.where(seller: current_user).order("created_at DESC")
+  def sales   #not sure if this should be user or admin
+    @orders = Order.all.where(seller: current_admin).order("created_at DESC")
   end
 
   # GET /orders/new
@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @listing = Listing.find(params[:listing_id])
-    @seller = @listing.user #the seller is the person who created the listing
+    @seller = @listing.admin #the seller is the person who created the listing #changed from user to admin
 
     @order.listing_id = @listing.id
     @order.buyer_id = current_user.id

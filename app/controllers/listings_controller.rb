@@ -1,10 +1,11 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, only: [:seller, :new, :create, :edit, :update, :destroy]
-  before_filter :check_user, only: [:edit, :update, :destroy]
+  before_filter :authenticate_admin!, only: [:seller, :new, :create, :edit, :update, :destroy]
+  before_filter :check_admin, only: [:edit, :update, :destroy]
+  # DO I NEED TO CREATE A filter for authenticate USER? 
 
   def seller 
-    @listings = Listing.where(user: current_user).order("created_at DESC") #descending order
+    @listings = Listing.where(admin: current_admin).order("created_at DESC") #descending order
   end
 
   # GET /listings
@@ -31,20 +32,20 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
-    @listing.user_id = current_user.id 
+    @listing.admin_id = current_admin.id   #changed from current_user and user_id
 
-    if current_user.recipient.blank?
+    if current_admin.recipient.blank?      #changed from current_user
       Stripe.api_key = ENV["STRIPE_API_KEY"]
       token = params[:stripeToken]
 
       recipient = Stripe::Recipient.create(
-        :name => current_user.name,
+        :name => current_admin.name,    #changed from current_user
         :type => "individual",
         :bank_account => token
         )
 
-    current_user.recipient = recipient.id
-    current_user.save
+    current_admin.recipient = recipient.id  #changed from current_user
+    current_admin.save                      #changed from current_user
     
     end
 
@@ -94,8 +95,8 @@ class ListingsController < ApplicationController
       params.require(:listing).permit(:name, :description, :price, :image)
     end
 
-    def check_user
-      if current_user != @listing.user
+    def check_admin
+      if current_admin != @listing.admin #added || current_admin
         redirect_to root_url, alert: "Sorry but you can't edit someone else's listing"
       end
     end
