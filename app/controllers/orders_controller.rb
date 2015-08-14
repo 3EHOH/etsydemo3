@@ -4,11 +4,11 @@ class OrdersController < ApplicationController
   before_action :authenticate_admin!, only: [:sales]
 
   def purchases
-    @orders = Order.all.where(buyer: current_user).order("created_at DESC")
+    @orders = Order.all.where(buyer: "current_user").order("created_at DESC")
   end
 
   def sales   #not sure if this should be user or admin
-    @orders = Order.all.where(seller: current_admin).order("created_at DESC")
+    @orders = Order.all.where(seller: "current_admin").order("created_at DESC")
   end
 
   # GET /orders/new

@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   # DO I NEED TO CREATE A filter for authenticate USER? 
 
   def seller 
-    @listings = Listing.where(admin: current_admin).order("created_at DESC") #descending order
+    @listings = Listing.where(admin: "current_admin").order("created_at DESC") #descending order
   end
 
   # GET /listings
