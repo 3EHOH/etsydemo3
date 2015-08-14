@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except=> [:sales]
+  before_action :authenticate_admin!, only: [:sales]
 
   def purchases
     @orders = Order.all.where(buyer: current_user).order("created_at DESC")

@@ -96,9 +96,9 @@ class ListingsController < ApplicationController
     end
 
     def check_admin
-      # if current_admin != @listing.admin #added || current_admin
-      #   redirect_to root_url, alert: "Sorry but you can't edit someone else's listing"
-      # end
+      if current_admin != @listing.admin #added || current_admin
+        redirect_to root_url, alert: "Sorry but you can't edit someone else's listing"
+      end
     end
 
 end
