@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :admins, :skip => :registrations
+  devise_for :admins
   devise_for :users
   resources :listings do 
     resources :orders, only: [:new, :create]
