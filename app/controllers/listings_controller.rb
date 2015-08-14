@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   # DO I NEED TO CREATE A filter for authenticate USER? 
 
   def seller 
-    @listings = Listing.where(admin: "current_admin").order("created_at DESC") #descending order
+    @listings = Listing.where(admin: current_admin).order("created_at DESC") #descending order
   end
 
   # GET /listings
@@ -96,7 +96,7 @@ class ListingsController < ApplicationController
     end
 
     def check_admin
-      if current_admin != @listing.admin #added || current_admin
+      if current_admin != @listing.admin
         redirect_to root_url, alert: "Sorry but you can't edit someone else's listing"
       end
     end
