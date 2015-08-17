@@ -1,12 +1,5 @@
 @import "bootstrap";
 
-
-
-.link {
-	color: black;
-}
-
-
 html:not(.index .listings) .jumbotron {
 	display: none;
 }
@@ -24,12 +17,6 @@ html:not(.index .listings) .jumbotron {
 .stretch {
     width:100%;
     height:100%;
-}
-
-header {
-	background-image: url('camobannerpresale.jpg');
-	width: 100%;
-	height: 100%;
 }
 
 body {
